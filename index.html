@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Bubblegum+Sans&family=Finger+Paint&family=Luckiest+Guy&family=Patrick+Hand&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Tic Tac Toe</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">Tic Tac Toe</h1>
+        </header>
+        <main>
+            <section class="prepareGame hidden">
+                <article class="userInfor">
+                    <div class="userInfor-Name ">
+                        <label for="user_name" class="userName mb-min">your name:</label>
+                        <input type="text" class="mb-min" id="user_name ">
+                    </div>
+                    <h3 class="pickMark-Text mb-min">pick your mark</h3>
+                    <div class="pickMark-choses mb-min">
+                        <div class="choseMark">
+                            <input type="radio" name="user_mark" id="markX" checked>
+                            <label for="markX" class="mark">x</label>
+                        </div>
+                        <div class="chosesMark">
+                            <input type="radio" name="user_mark" id="markO">
+                            <label for="markO" class="mark">o</label>
+                            <div class="radio-swich__mark" aria-hidden="true"></div>
+                        </div>
+                    </div>
+                    <h4 class="pickMark-Text note">remember: x goes first</h4>
+                </article>
+                <div class="buttonStart">
+                    <button type="button" class="btn-light startGame">new game (vs CPU)</button>
+                    <button type="button" class="btn-dark startGame">new game (vs player)</button>
+                </div>
+            </section>
+            <section class="boardDisplay ">
+                <div class="dashBoard">
+                    <div class="player">
+                        <div class="icon">
+                            <img src="./img/user.png" alt="" class="playerIcon">
+                        </div>
+                        <h2 class="playerName userName">Player 1</h2>
+                        <p class="playerSimple ticX userSimple">x</p>
+                    </div>
+                    <div class="player">
+                        <div class="icon">
+                            <img src="./img/ai.png" alt="" class="playerIcon">
+                        </div>
+                        <h2 class="playerName">Player 2</h2>
+                        <p class="playerSimple ticO">o</p>
+                    </div>
+                </div>
+            </section>
+            <section class="mainGame ">
+                <div class="boardGame">
+                    <div class="cell cell1">
+                        <span class="cellText ticX">x</span>
+                    </div>
+                    <div class="cell cell2">
+                        <span class="cellText ticO">o</span>
+                    </div>
+                    <div class="cell cell3">
+                        <span class="cellText"></span>
+                    </div>
+                    <div class="cell cell4">
+                        <span class="cellText ticO">o</span>
+                    </div>
+                    <div class="cell cell5">
+                        <span class="cellText"></span>
+                    </div>
+                    <div class="cell cell6">
+                        <span class="cellText"></span>
+                    </div>
+                    <div class="cell cell7">
+                        <span class="cellText"></span>
+                    </div>
+                    <div class="cell cell8">
+                        <span class="cellText ticX">x</span>
+                    </div>
+                    <div class="cell cell9">
+                        <span class="cellText"></span>
+                    </div>
+                </div>
+                <div class="displayScore">
+                    <div class="playerScore user">
+                        <p class="playerName"><span class="playerSimple ticX userSimple">x</span> (you)</p>
+                        <p class="score">11</p>
+                    </div>
+                    <div class="playerScore tie">
+                        <p class="playerName">ties</p>
+                        <p class="score">4</p>
+                    </div>
+                    <div class="playerScore player2">
+                        <p class="playerName "><span class="playerSimple ticO">o</span> (cpu)</p>
+                        <p class="score">12</p>
+                    </div>
+                </div>
+            </section>
+            <section class="endRound hidden">
+                <div class="endRoung-announ">
+                    <h4 class="announ-userResult">you <span class="userResult">won</span>!</h4>
+                    <div class="announ-winner">
+                        <span class="winSymbol">x</span>
+                        <p class="announ-text">take the round</p>
+                    </div>
+                    <div class="nextAction">
+                        <button class="btn-primary actionQuit">quit</button>
+                        <button class="btn-light actionNextRound">next round</button>
+                    </div>
+                </div>
+            </section>
+            <section class="restart hidden">
+                <div class="restart-announ">
+                    <p class="announ-restart-text">restart game?</p>
+                    <div class="restartAction">
+                        <button class="btn-primary restartQuit">quit</button>
+                        <button class="btn-light restartNextRound">next round</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer>
+        <a href="https://www.freepik.com/vectors/springtime">Springtime vector created by freepik -
+            www.freepik.com</a>
+    </footer>
+    <script src="./app.js"></script>
+</body>
+
+</html>

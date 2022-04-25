@@ -1,0 +1,412 @@
+:root {
+    --ft-logo: 'Luckiest Guy', cursive;
+    --ft-body: 'Alef', sans-serif;
+    --ft-main: 'Bubblegum Sans', cursive;
+    --ft-announcement: 'Patrick Hand', cursive;
+    --ft-tictactoe: 'Finger Paint', cursive;
+    --clr-dark: 13, 59, 102;
+    /*#0d3b66*/
+    --clr-light: 250, 240, 202;
+    /*#faf0ca*/
+    --clr-main-light: 244, 211, 94;
+    /*#f4d35e*/
+    --clr-main-primary: 82, 167, 138;
+    /*#68a691*/
+    --clr-body-text: rgb(61, 61, 61);
+    --border: 2px dashed #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+img {
+    max-width: 100%;
+}
+
+button {
+    border: none;
+    font-family: inherit;
+    font-weight: 700;
+}
+
+body {
+    font-family: var(--ft-body);
+    font-size: min(5vw, 1.5rem);
+    line-height: 1.3;
+    font-weight: 400;
+    color: var(--clr-body-text);
+    background-image: url('./img/hand-drawn-spring-wallpaper/4920290.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    margin: 0;
+    font-size: inherit;
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: inherit;
+}
+
+[class^='btn'] {
+    padding: 0.5em 1em;
+    background-color: rgba(var(--clr-bg), 0.9);
+    border-radius: 0.5em;
+    box-shadow: 0px 3px rgba(var(--clr-bg), 1);
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--clr-body-text);
+}
+
+[class^='btn-light'] {
+    --clr-bg: var(--clr-main-light)
+}
+
+[class^='btn-dark'] {
+    --clr-bg: var(--clr-main-primary)
+}
+
+[class^='btn-primary'] {
+    --clr-bg: var(--clr-light)
+}
+
+
+.mb-min {
+    margin-bottom: 0.25em;
+}
+
+.container {
+    min-height: 100vh;
+    position: relative;
+}
+
+.container>*,
+main>*:not(.endRound, .restart),
+.prepareGame>* {
+    margin-top: 1rem;
+}
+
+footer {
+    justify-self: self-end;
+    font-size: 1rem;
+    text-align: center;
+    margin: 1em;
+}
+
+/* ----header---- */
+.logo {
+    text-align: center;
+    font-family: var(--ft-logo);
+    font-size: clamp(4rem, 8vw, 6rem);
+    letter-spacing: 3px;
+    line-height: 1;
+    color: rgba(var(--clr-main-light), 1);
+    text-shadow: -3px 4px rgba(var(--clr-dark), 1);
+}
+
+/* ----prepareGame ----*/
+.prepareGame {
+    padding: 0 1em;
+}
+
+button.startGame {
+    width: 100%;
+    margin: 0.5em 0;
+}
+
+.userInfor {
+    border-radius: 0.5em;
+    background-color: rgba(var(--clr-dark), 0.8);
+    color: rgba(var(--clr-light), 1);
+    padding: 0.75em;
+    text-transform: uppercase;
+    box-shadow: 0px 3px rgba(var(--clr-dark), 1);
+}
+
+.userInfor-Name {
+    display: flex;
+    flex-direction: column;
+}
+
+.pickMark-choses {
+    background-color: rgba(var(--clr-dark), 0.8);
+    padding: 0.25em;
+    border-radius: 0.25em;
+    display: flex;
+}
+
+.pickMark-choses>* {
+    width: 100%;
+    text-align: center;
+}
+
+.pickMark-Text.note {
+    color: rgba(var(--clr-light), 0.5);
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+input[type="text"] {
+    background-color: rgba(var(--clr-dark), 0.8);
+    border: none;
+    padding: 0.25em;
+    outline: none;
+    border-radius: 0.25em;
+    color: rgba(var(--clr-light), 1)
+}
+
+input[type='radio'] {
+    display: none;
+}
+
+
+
+.chosesMark {
+    position: relative;
+}
+
+
+
+input[type='radio']:checked+label {
+    color: rgba(var(--clr-dark), 1);
+}
+
+input[type='radio']:checked~.radio-swich__mark {
+    transform: translateX(100%);
+}
+
+label.mark {
+    position: relative;
+    background-color: transparent;
+    display: block;
+    font-family: var(--ft-tictactoe);
+    cursor: pointer;
+    font-weight: 700;
+    color: rgba(var(--clr-light), 1);
+    z-index: 1;
+    transition: color 300ms;
+}
+
+.radio-swich__mark {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(var(--clr-light), 1);
+    border-radius: 0.25em;
+    transition: transform 250ms;
+}
+
+/* ----boardDisplay---- */
+.dashBoard {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    padding: 0.25em 0.5em;
+    border-radius: 0.5em;
+    background-color: rgba(var(--clr-dark), 0.4);
+    position: relative;
+    padding-top: 1.5em;
+    text-align: center;
+}
+
+.playerName {
+    font-size: 1rem;
+    color: rgba(var(--clr-body-text), 0.8)
+}
+
+.icon {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1px solid white;
+    display: grid;
+    place-content: center;
+    padding: 5px;
+    background-color: antiquewhite;
+    overflow: hidden;
+}
+
+.playerSimple {
+    font-family: var(--ft-tictactoe);
+    font-size: 1.5rem;
+}
+
+/* ----mainGame----*/
+.mainGame {
+    margin: 0 auto;
+    width: min(90%, 500px);
+}
+
+.boardGame {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: hidden;
+    gap: 0.5em;
+    padding: 1em;
+}
+
+.boardGame>* {
+    padding-top: 100%;
+    position: relative;
+    --clr-bg: var(--clr-dark);
+    background-color: rgba(var(--clr-bg), 1);
+    border-radius: 0.5rem;
+    box-shadow: 0px 3px rgba(0, 0, 0, 1);
+}
+
+.cellText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-family: var(--ft-tictactoe);
+    font-size: clamp(2rem, 15vw, 7rem);
+}
+
+.ticX {
+    color: rgba(var(--clr-main-primary), 1)
+}
+
+.ticO {
+    color: rgba(var(--clr-main-light), 1)
+}
+
+/* ----Score ----*/
+.displayScore {
+    padding: 0 1em;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5em;
+}
+
+.playerScore {
+    padding: 0.5em;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: rgba(var(--clr-bg));
+    border-radius: 0.5em;
+    margin: auto 0;
+}
+
+.playerScore * {
+    font-size: 0.8em;
+    color: var(--clr-body-text);
+}
+
+.playerScore.user {
+    --clr-bg: var(--clr-main-primary)
+}
+
+.playerScore.tie {
+    --clr-bg: var(--clr-light)
+}
+
+.playerScore.player2 {
+    --clr-bg: var(--clr-main-light)
+}
+
+.score {
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+/* ----end round---- */
+.endRound,
+.restart {
+    background-color: rgba(var(--clr-dark), 1);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    background-color: rgba(var(--clr-dark), 0.6);
+    display: grid;
+    place-content: center;
+    text-align: center;
+    padding: 0 1em;
+}
+
+.endRoung-announ,
+.restart-announ {
+    background-color: rgba(var(--clr-dark), 1);
+    padding: 1em 2em;
+    border-radius: 0.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+[class^="announ"] {
+    text-transform: uppercase;
+}
+
+.announ-userResult {
+    color: rgba(var(--clr-light), 0.8);
+
+}
+
+.announ-winner {
+    display: flex;
+    align-items: center;
+}
+
+.announ-text,
+.announ-restart-text {
+    color: rgba(var(--clr-main-primary), 1);
+    font-weight: 700;
+    font-size: 1.5em;
+}
+
+.announ-restart-text {
+    color: rgba(var(--clr-light), 1);
+}
+
+.announ-text {
+    color: rgba(var(--clr-main-primary), 1);
+}
+
+.winSymbol {
+    color: rgba(var(--clr-main-primary), 1);
+    font-family: var(--ft-tictactoe);
+    margin-right: 0.25em;
+    font-size: 2em;
+}
+
+.nextAction {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+/* ----general style---- */
+.hidden {
+    display: none;
+}
