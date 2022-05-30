@@ -10,8 +10,14 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Bubblegum+Sans&family=Finger+Paint&family=Luckiest+Guy&family=Patrick+Hand&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,600,0,0" />
     <link rel="stylesheet" href="style.css">
     <title>Tic Tac Toe</title>
+    <script src="./ejs.min.js"></script>
+    <script type="module" src="./app.js"></script>
+    <script type="module" src="./modules/gameBoard.js"></script>
+
 </head>
 
 <body>
@@ -20,100 +26,103 @@
             <h1 class="logo">Tic Tac Toe</h1>
         </header>
         <main>
-            <section class="prepareGame hidden">
-                <article class="userInfor">
-                    <div class="userInfor-Name ">
-                        <label for="user_name" class="userName mb-min">your name:</label>
-                        <input type="text" class="mb-min" id="user_name ">
-                    </div>
-                    <h3 class="pickMark-Text mb-min">pick your mark</h3>
-                    <div class="pickMark-choses mb-min">
-                        <div class="choseMark">
-                            <input type="radio" name="user_mark" id="markX" checked>
-                            <label for="markX" class="mark">x</label>
+            <section class="prepareGame ">
+                <form action="" id="form">
+                    <article class="userInfor">
+                        <div class="userInfor-Name ">
+                            <label for="user_name" class="userName mb-min">your name:</label>
+                            <input type="text" class="mb-min" id="user_name" name="name" required placeholder=" ">
                         </div>
-                        <div class="chosesMark">
-                            <input type="radio" name="user_mark" id="markO">
-                            <label for="markO" class="mark">o</label>
-                            <div class="radio-swich__mark" aria-hidden="true"></div>
+                        <h3 class="pickMark-Text mb-min">pick your mark</h3>
+                        <div class="pickMark-choses mb-min">
+                            <div class="choseMark">
+                                <input type="radio" name="mark" value="x" id="user_markX" checked>
+                                <label for="user_markX" class="mark">x</label>
+                            </div>
+                            <div class="chosesMark">
+                                <input type="radio" name="mark" value="o" id="user_markO">
+                                <label for="user_markO" class="mark">o</label>
+                                <div class="radio-swich__mark" aria-hidden="true"></div>
+                            </div>
                         </div>
+                        <h4 class="pickMark-Text note mb-min">remember: x goes first</h4>
+                        <div class="gameLevel">
+                            <div class="level">
+                                <input id="level-easy" type="radio" name="level" value="easy" checked>
+                                <label for="level-easy" class="label_level">Easy</label>
+                                <input id="level-medium" type="radio" name="level" value="medium">
+                                <label for="level-medium" class="label_level">Medium</label>
+                                <input id="level-hard" type="radio" name="level" value="hard">
+                                <label for="level-hard" class="label_level">Hard</label>
+                                <div class="radio-swich__level" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                        <div class="player2Infor-Name hidden">
+                            <label for="player2_name" class="player2Name mb-min">player 2's name:</label>
+                            <input type="text" class="mb-min" id="player2_name" name="name" disabled required
+                                placeholder=" ">
+                        </div>
+                        <div class="buttonPlayerChoice">
+                            <button type="button" class="btn-light vsCPU nonactive">vs CPU</button>
+                            <button type="button" class="btn-light vsPlayer2">vs player</button>
+                        </div>
+                    </article>
+                    <div class="buttonStart ">
+                        <button type="submit" id='submit' class="btn-dark btnStart starting">start</button>
                     </div>
-                    <h4 class="pickMark-Text note">remember: x goes first</h4>
-                </article>
-                <div class="buttonStart">
-                    <button type="button" class="btn-light startGame">new game (vs CPU)</button>
-                    <button type="button" class="btn-dark startGame">new game (vs player)</button>
-                </div>
+                </form>
             </section>
-            <section class="boardDisplay ">
-                <div class="dashBoard">
-                    <div class="player">
-                        <div class="icon">
-                            <img src="./img/user.png" alt="" class="playerIcon">
+            <section class="boardDisplay hidden">
+                <div class="dashBoard" id="dashBoard">
+                    <script type="text/template" id="templatePlayers">
+                    <% players.forEach(player =>{%>
+                        <div class="player">
+                            <div class="icon">
+                                <img src="<%=player.getImage()%>" alt="" class="playerIcon">
+                            </div>
+                            <h2 class="playerName userName"><%=player.getName()%></h2>
+                            <p class="playerMark <%=player.getMark()==='x'?'x':'o'%>"><%=player.getMark()%></p>
                         </div>
-                        <h2 class="playerName userName">Player 1</h2>
-                        <p class="playerSimple ticX userSimple">x</p>
-                    </div>
-                    <div class="player">
-                        <div class="icon">
-                            <img src="./img/ai.png" alt="" class="playerIcon">
-                        </div>
-                        <h2 class="playerName">Player 2</h2>
-                        <p class="playerSimple ticO">o</p>
-                    </div>
+                        <%}) %>
+                    </script>
                 </div>
+
             </section>
-            <section class="mainGame ">
-                <div class="boardGame">
-                    <div class="cell cell1">
-                        <span class="cellText ticX">x</span>
-                    </div>
-                    <div class="cell cell2">
-                        <span class="cellText ticO">o</span>
-                    </div>
-                    <div class="cell cell3">
-                        <span class="cellText"></span>
-                    </div>
-                    <div class="cell cell4">
-                        <span class="cellText ticO">o</span>
-                    </div>
-                    <div class="cell cell5">
-                        <span class="cellText"></span>
-                    </div>
-                    <div class="cell cell6">
-                        <span class="cellText"></span>
-                    </div>
-                    <div class="cell cell7">
-                        <span class="cellText"></span>
-                    </div>
-                    <div class="cell cell8">
-                        <span class="cellText ticX">x</span>
-                    </div>
-                    <div class="cell cell9">
-                        <span class="cellText"></span>
-                    </div>
+            <section class="mainGame hidden">
+                <div class="buttonRestart">
+                    <button type="button" class="btn-light btnRestart">
+                        <span class="material-symbols-outlined">restart_alt</span></button>
+                </div>
+                <div class="boardGame" id="boardGame">
+                    <script type="text/template" id="templateBoardGame">
+                        <%gameBoard.forEach((cell,index) =>{%>
+                            <div class="cell <%if(cell){%>
+                                <%=cell==='x'?'x':'o'%>
+                            <%}%>" id="<%=index%>">
+                                <span class="cellText"><%=cell%></span>
+                            </div>
+                            <%})%>
+                        </script>
                 </div>
                 <div class="displayScore">
-                    <div class="playerScore user">
-                        <p class="playerName"><span class="playerSimple ticX userSimple">x</span> (you)</p>
-                        <p class="score">11</p>
-                    </div>
-                    <div class="playerScore tie">
-                        <p class="playerName">ties</p>
-                        <p class="score">4</p>
-                    </div>
-                    <div class="playerScore player2">
-                        <p class="playerName "><span class="playerSimple ticO">o</span> (cpu)</p>
-                        <p class="score">12</p>
-                    </div>
+                    <script type="text/template" id="displayScore">
+                        <%players.forEach(player=>{%>
+                            <div class="playerScore">
+                                <p class="playerName">
+                                    <%if(player.getMark()){%>
+                                        <span class="playerSymbol <%=player.getMark()==='x'?'x':'o'%>"><%=player.getMark()%></span>(<%=player.getName()%>)</p>
+                                    <%} else{%>
+                                        <span class="playerSymbol">tie</span></p>
+                                        <%}%>
+                                <p class="score"><%=player.getScore()%></p>
+                            </div>
+                        <%})%>
+                    </script>
                 </div>
             </section>
             <section class="endRound hidden">
-                <div class="endRoung-announ">
-                    <h4 class="announ-userResult">you <span class="userResult">won</span>!</h4>
-                    <div class="announ-winner">
-                        <span class="winSymbol">x</span>
-                        <p class="announ-text">take the round</p>
+                <div class="announce_endRound">
+                    <div class="userResult">
                     </div>
                     <div class="nextAction">
                         <button class="btn-primary actionQuit">quit</button>
@@ -122,21 +131,20 @@
                 </div>
             </section>
             <section class="restart hidden">
-                <div class="restart-announ">
-                    <p class="announ-restart-text">restart game?</p>
+                <div class="announce_restart">
+                    <p class="announce-restart-text">restart game?</p>
                     <div class="restartAction">
-                        <button class="btn-primary restartQuit">quit</button>
-                        <button class="btn-light restartNextRound">next round</button>
+                        <button class="btn-primary btnRestartQuit">quit</button>
+                        <button class="btn-light btnRestartRound">restart</button>
                     </div>
                 </div>
             </section>
         </main>
+        <footer>
+            <a href="https://www.freepik.com/vectors/springtime">Springtime vector created by freepik -
+                www.freepik.com</a>
+        </footer>
     </div>
-    <footer>
-        <a href="https://www.freepik.com/vectors/springtime">Springtime vector created by freepik -
-            www.freepik.com</a>
-    </footer>
-    <script src="./app.js"></script>
 </body>
 
 </html>
