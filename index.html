@@ -76,7 +76,7 @@
                 <div class="dashBoard" id="dashBoard">
                     <script type="text/template" id="templatePlayers">
                     <% players.forEach(player =>{%>
-                        <div class="player">
+                        <div class="player " id=<%=player.getMark()==='x'?'userInfos': 'player2Infos'%>>
                             <div class="icon">
                                 <img src="<%=player.getImage()%>" alt="" class="playerIcon">
                             </div>

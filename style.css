@@ -338,18 +338,22 @@ label.label_level {
     text-align: center;
     width: 100%;
     max-width: 160px;
+    transition: all ease-in-out 200ms;
+}
+
+.player.onTurn {
+    background-color: rgba(var(--clr-yellow-light), var(--opacity-dark));
 }
 
 .playerName {
     font-size: 1rem;
     color: rgba(var(--clr-body-text), var(--opacity-dark));
     text-transform: capitalize;
-
 }
 
 .icon {
     position: absolute;
-    top: -10px;
+    top: -15px;
     left: 50%;
     transform: translate(-50%, 0);
     width: 2rem;
@@ -367,7 +371,7 @@ label.label_level {
     font-family: var(--ft-tictactoe);
     font-size: 1rem;
     position: absolute;
-    top: 2px;
+    top: -5px;
     left: 55%;
     width: 1.5rem;
     height: 1.5rem;
@@ -568,7 +572,7 @@ label.label_level {
 @media screen and (min-width:800px) {
     .dashBoard {
         position: absolute;
-        top: 30%;
+        top: 33%;
         left: 50%;
         transform: translateX(-50%);
         width: 100%;

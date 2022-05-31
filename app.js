@@ -12,6 +12,7 @@ import setTimeoutFunction from './modules/promise.js';
     const btnVsCPU = document.querySelector(".vsCPU")
     const btnVsPlayer2 = document.querySelector(".vsPlayer2")
     const btnRestart = document.querySelector('.btnRestart')
+    let showUserInfos, showPlayer2Infos;
     const symbol = ['x', 'o']
     let userData, player2Data, tieData;
     let gameLevel;
@@ -26,7 +27,13 @@ import setTimeoutFunction from './modules/promise.js';
     function toggleDisplay(action, ...els) {
         els.forEach(el => el.classList.toggle(action))
     }
-
+    function showWhoTurn(UserInfos, Player2Infos) {
+        if (userData.getMark() === 'x') {
+            UserInfos.classList.add('onTurn')
+        } else {
+            Player2Infos.classList.add('onTurn')
+        }
+    }
     document.getElementById('form').addEventListener('submit', (e) => {
         e.preventDefault()
         getPlayersInf()
@@ -86,6 +93,7 @@ import setTimeoutFunction from './modules/promise.js';
             }
         })
     }
+
     function renderStartGame() {
         changeSizeLogo()
         renderDisplayDashBoard()
@@ -98,6 +106,9 @@ import setTimeoutFunction from './modules/promise.js';
         const template = document.getElementById('templatePlayers').innerHTML
         const html = ejs.render(template, { players: [userData, player2Data] })
         document.getElementById('dashBoard').innerHTML = html
+        showUserInfos = document.getElementById('userInfos')
+        showPlayer2Infos = document.getElementById('player2Infos')
+        showWhoTurn(showUserInfos, showPlayer2Infos)
     }
     function changeSizeLogo() {
         document.querySelector('.logo').classList.add('small-logo')
@@ -153,6 +164,7 @@ import setTimeoutFunction from './modules/promise.js';
             return
         }
         currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
+        toggleDisplay('onTurn', showUserInfos, showPlayer2Infos)
     }
     function getCPUmove() {
         let CPUmove = getBestMove(gameLevel)
@@ -250,6 +262,7 @@ import setTimeoutFunction from './modules/promise.js';
             })
         })
         currentPlayer = 'x'
+        showWhoTurn(showUserInfos, showPlayer2Infos)
         startGame()
     }
 
