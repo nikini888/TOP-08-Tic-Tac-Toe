@@ -9,9 +9,12 @@ import setTimeoutFunction from './modules/promise.js';
     const announceEndRound = document.querySelector('.endRound')
     const announceRestart = document.querySelector('.restart')
     const inputPlayer2Name = document.getElementById('player2_name')
+    const btnVsCPU = document.querySelector(".vsCPU")
+    const btnVsPlayer2 = document.querySelector(".vsPlayer2")
     const btnRestart = document.querySelector('.btnRestart')
     const symbol = ['x', 'o']
     let userData, player2Data, tieData;
+    let gameLevel;
     let currentPlayer = 'x';
     let isPlayVsCPU = true;
     let cells;
@@ -35,6 +38,9 @@ import setTimeoutFunction from './modules/promise.js';
         userData = PlayerFactory(getUserInf())
         player2Data = PlayerFactory(getPlayer2Inf())
         tieData = PlayerFactory({ name: 'tie' })
+
+        gameLevel = isPlayVsCPU === true ? getGameLevelInput() : -1
+
         getPlayersToDisplay.push(userData)
         getPlayersToDisplay.push(tieData)
         getPlayersToDisplay.push(player2Data)
@@ -59,18 +65,26 @@ import setTimeoutFunction from './modules/promise.js';
         return userData
     }
 
-    document.querySelector('.vsPlayer2').addEventListener('click', choiceGameType)
-    document.querySelector('.vsCPU').addEventListener('click', choiceGameType)
+    btnVsPlayer2.addEventListener('click', choiceGameType)
+    btnVsCPU.addEventListener('click', choiceGameType)
 
     function choiceGameType() {
         const divGetPlayer2Inf = document.querySelector(".player2Infor-Name")
-        const btnVsCPU = document.querySelector(".vsCPU")
-        const btnVsPlayer2 = document.querySelector(".vsPlayer2")
+        const divGetGameLevel = document.querySelector('.gameLevel')
 
         isPlayVsCPU = !isPlayVsCPU
         inputPlayer2Name.disabled = !inputPlayer2Name.disabled;
         toggleDisplay('hidden', divGetPlayer2Inf)
+        toggleDisplay('hidden', divGetGameLevel)
         toggleDisplay('nonactive', btnVsCPU, btnVsPlayer2)
+    }
+    function getGameLevelInput() {
+        document.querySelectorAll("[id^='level']").forEach(input => {
+            const { type, value, checked } = input;
+            if (type === 'radio' && checked) {
+                return value
+            }
+        })
     }
     function renderStartGame() {
         changeSizeLogo()
@@ -141,7 +155,7 @@ import setTimeoutFunction from './modules/promise.js';
         currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
     }
     function getCPUmove() {
-        let CPUmove = getBestMove()
+        let CPUmove = getBestMove(gameLevel)
         CPUmove.minimax(gameBoard, 0, currentPlayer, bestMove => {
             const cell = document.getElementById(bestMove).firstElementChild
             actionAfterMove(cell, bestMove)

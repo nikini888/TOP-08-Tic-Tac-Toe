@@ -48,11 +48,11 @@
                         <h4 class="pickMark-Text note mb-min">remember: x goes first</h4>
                         <div class="gameLevel">
                             <div class="level">
-                                <input id="level-easy" type="radio" name="level" value="easy" checked>
+                                <input id="level-easy" type="radio" name="level" value="2" checked>
                                 <label for="level-easy" class="label_level">Easy</label>
-                                <input id="level-medium" type="radio" name="level" value="medium">
+                                <input id="level-medium" type="radio" name="level" value="3">
                                 <label for="level-medium" class="label_level">Medium</label>
-                                <input id="level-hard" type="radio" name="level" value="hard">
+                                <input id="level-hard" type="radio" name="level" value="4">
                                 <label for="level-hard" class="label_level">Hard</label>
                                 <div class="radio-swich__level" aria-hidden="true"></div>
                             </div>
@@ -112,7 +112,7 @@
                                     <%if(player.getMark()){%>
                                         <span class="playerSymbol <%=player.getMark()==='x'?'x':'o'%>"><%=player.getMark()%></span>(<%=player.getName()%>)</p>
                                     <%} else{%>
-                                        <span class="playerSymbol">tie</span></p>
+                                        <span class="playerSymbol">TIE</span></p>
                                         <%}%>
                                 <p class="score"><%=player.getScore()%></p>
                             </div>

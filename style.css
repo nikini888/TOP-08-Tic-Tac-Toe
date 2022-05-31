@@ -12,6 +12,8 @@
     /*#f4d35e*/
     --clr-text-green-light: 82, 167, 138;
     /*#68a691*/
+    --clr-bg-winner-organ: 247, 126, 71;
+    /* #fb5607 */
     --clr-body-text: rgb(61, 61, 61);
     --opacity-dark: 0.8;
     --opacity-light: 1;
@@ -340,7 +342,9 @@ label.label_level {
 
 .playerName {
     font-size: 1rem;
-    color: rgba(var(--clr-body-text), var(--opacity-dark))
+    color: rgba(var(--clr-body-text), var(--opacity-dark));
+    text-transform: capitalize;
+
 }
 
 .icon {
@@ -446,6 +450,13 @@ label.label_level {
     color: var(--clr-body-text);
 }
 
+.playerScore .playerName {
+    width: 70px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .playerScore:nth-child(1) {
     --clr-bg: var(--clr-text-green-light)
 }
@@ -545,7 +556,13 @@ label.label_level {
 
 
 .win {
-    background-color: pink;
+    --clr-bg: var(--clr-bg-winner-organ);
+    background-color: rgb(var(--clr-bg), var(--opacity-dark));
+    box-shadow: 0px 3px rgba(var(--clr-bg), var(--opacity-light));
+}
+
+.win .cellText {
+    color: white;
 }
 
 @media screen and (min-width:800px) {
