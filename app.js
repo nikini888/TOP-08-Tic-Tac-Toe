@@ -12,6 +12,7 @@ import setTimeoutFunction from './modules/promise.js';
     const btnVsCPU = document.querySelector(".vsCPU")
     const btnVsPlayer2 = document.querySelector(".vsPlayer2")
     const btnRestart = document.querySelector('.btnRestart')
+    const logo = document.querySelector('.logo')
     let showUserInfos, showPlayer2Infos;
     const symbol = ['x', 'o']
     let userData, player2Data, tieData;
@@ -26,6 +27,13 @@ import setTimeoutFunction from './modules/promise.js';
 
     function toggleDisplay(action, ...els) {
         els.forEach(el => el.classList.toggle(action))
+    }
+    function reSetWhoTurn() {
+        [...arguments].forEach(el => {
+            if (el.classList.contains('onTurn')) {
+                el.classList.remove('onTurn')
+            }
+        })
     }
     function showWhoTurn(UserInfos, Player2Infos) {
         if (userData.getMark() === 'x') {
@@ -47,7 +55,6 @@ import setTimeoutFunction from './modules/promise.js';
         tieData = PlayerFactory({ name: 'tie' })
 
         gameLevel = isPlayVsCPU === true ? getGameLevelInput() : -1
-
         getPlayersToDisplay.push(userData)
         getPlayersToDisplay.push(tieData)
         getPlayersToDisplay.push(player2Data)
@@ -72,10 +79,14 @@ import setTimeoutFunction from './modules/promise.js';
         return userData
     }
 
-    btnVsPlayer2.addEventListener('click', choiceGameType)
-    btnVsCPU.addEventListener('click', choiceGameType)
-
-    function choiceGameType() {
+    btnVsPlayer2.onclick = (e) => {
+        choiceGameType(e.target)
+    }
+    console.dir(btnVsPlayer2)
+    function switchGameTypeButton(el) {
+        el.onclick = ''
+    }
+    function choiceGameType(el) {
         const divGetPlayer2Inf = document.querySelector(".player2Infor-Name")
         const divGetGameLevel = document.querySelector('.gameLevel')
 
@@ -84,18 +95,26 @@ import setTimeoutFunction from './modules/promise.js';
         toggleDisplay('hidden', divGetPlayer2Inf)
         toggleDisplay('hidden', divGetGameLevel)
         toggleDisplay('nonactive', btnVsCPU, btnVsPlayer2)
+        const switchCase = el === btnVsPlayer2 ? btnVsCPU : btnVsPlayer2
+        switchCase.onclick = (el) => {
+            choiceGameType(el.target)
+        }
+        switchGameTypeButton(el)
     }
     function getGameLevelInput() {
+        let level = 0;
         document.querySelectorAll("[id^='level']").forEach(input => {
-            const { type, value, checked } = input;
-            if (type === 'radio' && checked) {
-                return value
+            const { value, checked } = input;
+            if (checked) {
+                level = value
             }
         })
+        return level
     }
 
     function renderStartGame() {
         changeSizeLogo()
+        addActionResetOnLogo()
         renderDisplayDashBoard()
         gameBoard.renderDisplayBoardGame()
         cells = document.querySelectorAll('.cell')
@@ -111,24 +130,32 @@ import setTimeoutFunction from './modules/promise.js';
         showWhoTurn(showUserInfos, showPlayer2Infos)
     }
     function changeSizeLogo() {
-        document.querySelector('.logo').classList.add('small-logo')
+        logo.classList.add('small-logo')
+    }
+    function addActionResetOnLogo() {
+        logo.onclick = () => {
+            location.reload()
+        }
     }
     function startGame() {
         if (isPlayVsCPU) {
             if (userData.getMark() === 'x') {
                 addUserMove()
             } else {
-                const index = [0, 2, 4, 6, 8]
-                //chose random index to CPU play
-                const randomMove = Math.floor(Math.random() * index.length)
-                gameBoard.addMove('x', randomMove)
-                const cell = document.getElementById(randomMove).firstElementChild
-                actionAfterMove(cell, randomMove)
+                setTimeoutFunction(getRandomMoveCUPGoFirst, 1000)
                 addUserMove()
             }
         } else {
             addUserMove()
         }
+    }
+    function getRandomMoveCUPGoFirst() {
+        const index = [0, 2, 4, 6, 8]
+        //chose random index to CPU play
+        const randomMove = Math.floor(Math.random() * index.length)
+        gameBoard.addMove('x', randomMove)
+        const cell = document.getElementById(randomMove).firstElementChild
+        actionAfterMove(cell, randomMove)
     }
     function addUserMove() {
         if (isEndGame === true) return
@@ -168,6 +195,7 @@ import setTimeoutFunction from './modules/promise.js';
     }
     function getCPUmove() {
         let CPUmove = getBestMove(gameLevel)
+        console.log(gameLevel)
         CPUmove.minimax(gameBoard, 0, currentPlayer, bestMove => {
             const cell = document.getElementById(bestMove).firstElementChild
             actionAfterMove(cell, bestMove)
@@ -227,8 +255,9 @@ import setTimeoutFunction from './modules/promise.js';
 
     function displayAnnounceRestart() {
         if (btnRestart.textContent === 'New Game') {
-            announceRestart.querySelector('.announce-restart-text').textContent = 'New game?'
-            announceRestart.querySelector('.btnRestartRound').textContent = 'new game'
+            isEndGame = false
+            resetGameBoardAndMainGame()
+            return
         }
         toggleDisplay('hidden', announceRestart)
 
@@ -236,18 +265,13 @@ import setTimeoutFunction from './modules/promise.js';
             toggleDisplay('hidden', announceRestart)
         }
         announceRestart.querySelector('.btnRestartRound').onclick = () => {
-            if (btnRestart.textContent === 'New Game') {
-                btnRestart.innerHTML = '<span class="material-symbols-outlined">restart_alt</span></button>'
-                announceRestart.querySelector('.announce-restart-text').textContent = 'restart game?'
-                announceRestart.querySelector('.btnRestartRound').textContent = 'restart'
-            }
             toggleDisplay('hidden', announceRestart)
             isEndGame = false
             resetGameBoardAndMainGame()
         }
 
     }
-    function resetGameBoardAndMainGame() {
+    function clearCellsAndGameBoard() {
         cells.forEach((cell, index) => {
             gameBoard.clearMove(index)
             if (cell.classList.contains('win')) {
@@ -261,7 +285,14 @@ import setTimeoutFunction from './modules/promise.js';
                 }
             })
         })
+    }
+    function resetGameBoardAndMainGame() {
+        clearCellsAndGameBoard()
+        if (btnRestart.textContent === 'New Game') {
+            btnRestart.innerHTML = '<span class="material-symbols-outlined">restart_alt</span></button>'
+        }
         currentPlayer = 'x'
+        reSetWhoTurn(showUserInfos, showPlayer2Infos)
         showWhoTurn(showUserInfos, showPlayer2Infos)
         startGame()
     }

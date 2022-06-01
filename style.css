@@ -152,9 +152,19 @@ main {
     border: 2px solid rgba(var(--clr-green-dark), var(--opacity-light));
     line-height: 1.5rem;
     border-radius: 0.5em;
+    transition: translate ease-in-out 250ms;
 }
 
-.logo.small-logo::before {
+.logo.small-logo:hover {
+    background-color: rgba(var(--clr-green-dark), 0.2);
+    text-shadow: none;
+}
+
+.logo.small-logo:hover::after {
+    transform: translate(2px, 2px);
+}
+
+.logo.small-logo::after {
     position: absolute;
     content: '';
     top: -5px;
@@ -167,7 +177,6 @@ main {
 
 /* ----prepareGame ----*/
 .prepareGame {
-    padding: 0 1em;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -194,7 +203,7 @@ main {
     border-radius: 0.5em;
     background-color: rgba(var(--clr-green-dark), var(--opacity-dark));
     color: rgba(var(--clr-yellow-light), var(--opacity-light));
-    padding: 0.75em;
+    padding: 0.5em;
     text-transform: uppercase;
     box-shadow: 0px 3px rgba(var(--clr-green-dark), var(--opacity-light));
 }
@@ -230,6 +239,7 @@ main {
 .level>* {
     width: 100%;
     text-align: center;
+    padding: 0 0.25em;
 }
 
 .pickMark-Text.note {
@@ -384,10 +394,11 @@ label.label_level {
 }
 
 /* ----mainGame----*/
+.prepareGame,
 .mainGame,
 .boardDisplay {
     margin: 0 auto;
-    width: min(90%, 300px);
+    width: min(90%, 400px);
 }
 
 .boardGame {
@@ -455,10 +466,15 @@ label.label_level {
 }
 
 .playerScore .playerName {
-    width: 70px;
+    width: 100px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.playerSymbol {
+    width: 100%;
+    text-align: center;
 }
 
 .playerScore:nth-child(1) {
@@ -522,7 +538,7 @@ label.label_level {
 .announce-restart-text {
     color: rgba(var(--clr-text-green-light), var(--opacity-light));
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 
 .announce-restart-text {
@@ -576,7 +592,7 @@ label.label_level {
         left: 50%;
         transform: translateX(-50%);
         width: 100%;
-        max-width: 750px;
+        max-width: 850px;
         padding: 0 1em;
     }
 

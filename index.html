@@ -31,7 +31,8 @@
                     <article class="userInfor">
                         <div class="userInfor-Name ">
                             <label for="user_name" class="userName mb-min">your name:</label>
-                            <input type="text" class="mb-min" id="user_name" name="name" required placeholder=" ">
+                            <input type="text" class="mb-min" id="user_name" name="name" value="Player 1" required
+                                placeholder="Player 1">
                         </div>
                         <h3 class="pickMark-Text mb-min">pick your mark</h3>
                         <div class="pickMark-choses mb-min">
@@ -59,8 +60,8 @@
                         </div>
                         <div class="player2Infor-Name hidden">
                             <label for="player2_name" class="player2Name mb-min">player 2's name:</label>
-                            <input type="text" class="mb-min" id="player2_name" name="name" disabled required
-                                placeholder=" ">
+                            <input type="text" class="mb-min" id="player2_name" name="name" value="Player 2" disabled
+                                required placeholder="Player 2">
                         </div>
                         <div class="buttonPlayerChoice">
                             <button type="button" class="btn-light vsCPU nonactive">vs CPU</button>
@@ -75,8 +76,8 @@
             <section class="boardDisplay hidden">
                 <div class="dashBoard" id="dashBoard">
                     <script type="text/template" id="templatePlayers">
-                    <% players.forEach(player =>{%>
-                        <div class="player " id=<%=player.getMark()==='x'?'userInfos': 'player2Infos'%>>
+                    <% players.forEach((player,index) =>{%>
+                        <div class="player " id=<%=index===0?'userInfos': 'player2Infos'%>>
                             <div class="icon">
                                 <img src="<%=player.getImage()%>" alt="" class="playerIcon">
                             </div>
