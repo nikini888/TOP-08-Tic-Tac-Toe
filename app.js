@@ -134,7 +134,7 @@ import setTimeoutFunction from './modules/promise.js';
     }
     function addActionResetOnLogo() {
         logo.onclick = () => {
-            location.reload()
+            showResetGame()
         }
     }
     function startGame() {
@@ -236,6 +236,17 @@ import setTimeoutFunction from './modules/promise.js';
             toggleDisplay('hidden', announceEndRound)
             isEndGame = false
             resetGameBoardAndMainGame()
+        }
+    }
+    function showResetGame() {
+        const announceReset = document.querySelector('.reset')
+        toggleDisplay('hidden', announceReset)
+        announceReset.querySelector('.btnResetQuit').onclick = () => {
+            toggleDisplay('hidden', announceReset)
+        }
+        announceReset.querySelector('.btnReset').onclick = () => {
+            location.reload()
+            toggleDisplay('hidden', announceReset)
         }
     }
     function updateScoreBoard() {

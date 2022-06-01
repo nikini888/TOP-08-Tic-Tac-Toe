@@ -497,7 +497,8 @@ label.label_level {
 
 /* ----end round---- */
 .endRound,
-.restart {
+.restart,
+.reset {
     position: absolute;
     top: 0;
     width: 100%;
@@ -511,7 +512,8 @@ label.label_level {
 }
 
 .announce_endRound,
-.announce_restart {
+.announce_restart,
+.announce_reset {
     background-color: rgba(var(--clr-green-dark), var(--opacity-light));
     padding: 1em 2em;
     border-radius: 0.5em;
