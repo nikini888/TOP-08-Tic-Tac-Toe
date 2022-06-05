@@ -7,6 +7,7 @@ import setTimeoutFunction from './modules/promise.js';
     const boardDisplay = document.querySelector('.boardDisplay')
     const mainGame = document.querySelector('.mainGame')
     const announceEndRound = document.querySelector('.endRound')
+    const announceWhoTurnFirst = document.querySelector('.whoTurn')
     const announceRestart = document.querySelector('.restart')
     const inputPlayer2Name = document.getElementById('player2_name')
     const btnVsCPU = document.querySelector(".vsCPU")
@@ -45,7 +46,7 @@ import setTimeoutFunction from './modules/promise.js';
     document.getElementById('form').addEventListener('submit', (e) => {
         e.preventDefault()
         getPlayersInf()
-        toggleDisplay('hidden', prepareGame, boardDisplay, mainGame)
+        toggleDisplay('hidden', prepareGame, boardDisplay, mainGame, announceWhoTurnFirst)
         renderStartGame()
     })
 
@@ -119,6 +120,7 @@ import setTimeoutFunction from './modules/promise.js';
         gameBoard.renderDisplayBoardGame()
         cells = document.querySelectorAll('.cell')
         renderDisplayScore()
+        renderDisplayWhoTurnFirst()
         startGame()
     }
     function renderDisplayDashBoard() {
@@ -238,6 +240,18 @@ import setTimeoutFunction from './modules/promise.js';
             resetGameBoardAndMainGame()
         }
     }
+    function renderDisplayWhoTurnFirst() {
+        const template = document.getElementById('showWhoTurnFirst').innerHTML
+        const playerFirst = { mark: 'x' }
+        playerFirst.name = userData.getMark() === 'x' ? userData.getName() : player2Data.getName()
+        const html = ejs.render(template, { player: playerFirst })
+        document.querySelector('.whoTurn').innerHTML = html
+        setTimeoutFunction(() => { toggleDisplay('hidden', announceWhoTurnFirst) }, 2000)
+    }
+    function showWhoTurnFirst() {
+        toggleDisplay('hidden', announceWhoTurnFirst)
+        setTimeoutFunction(() => { toggleDisplay('hidden', announceWhoTurnFirst) }, 2000)
+    }
     function showResetGame() {
         const announceReset = document.querySelector('.reset')
         toggleDisplay('hidden', announceReset)
@@ -305,6 +319,7 @@ import setTimeoutFunction from './modules/promise.js';
         currentPlayer = 'x'
         reSetWhoTurn(showUserInfos, showPlayer2Infos)
         showWhoTurn(showUserInfos, showPlayer2Infos)
+        showWhoTurnFirst()
         startGame()
     }
 

@@ -121,6 +121,14 @@
                     </script>
                 </div>
             </section>
+            <section class="whoTurn hidden">
+                <script type="text/template" id="showWhoTurnFirst">
+                    <div class="announce_whoTurn">
+                        <p class="playerSymbol <%=player.mark==='x'?'x':'o'%>"><%=player.mark%></p>
+                        <p><span class="whoTurn_name"><%=player.name%></span> go first!</p>
+                    </div>
+                </script>
+            </section>
             <section class="endRound hidden">
                 <div class="announce_endRound">
                     <div class="userResult">

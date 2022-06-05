@@ -461,12 +461,12 @@ label.label_level {
 }
 
 .playerScore * {
-    font-size: 0.8em;
+    font-size: 0.75em;
     color: var(--clr-body-text);
 }
 
 .playerScore .playerName {
-    width: 100px;
+    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -498,7 +498,8 @@ label.label_level {
 /* ----end round---- */
 .endRound,
 .restart,
-.reset {
+.reset,
+.whoTurn {
     position: absolute;
     top: 0;
     width: 100%;
@@ -513,7 +514,8 @@ label.label_level {
 
 .announce_endRound,
 .announce_restart,
-.announce_reset {
+.announce_reset,
+.announce_whoTurn {
     background-color: rgba(var(--clr-green-dark), var(--opacity-light));
     padding: 1em 2em;
     border-radius: 0.5em;
@@ -538,12 +540,12 @@ label.label_level {
 
 .announce-text,
 .announce-restart-text {
-    color: rgba(var(--clr-text-green-light), var(--opacity-light));
     font-weight: 700;
     font-size: 1.25em;
 }
 
-.announce-restart-text {
+.announce-restart-text,
+.announce_whoTurn {
     color: rgba(var(--clr-yellow-light), var(--opacity-light));
 }
 
